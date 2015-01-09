@@ -1,18 +1,17 @@
-package it.scompo.batchstuff.batch.nothing;
+package it.scompo.batchstuff.batch.complex;
 
-import static it.scompo.batchstuff.batch.nothing.NothingConstants.*;
+import static it.scompo.batchstuff.batch.complex.ComplexJobConstants.*;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class NothingJobConfiguration {
+public class ComplexJobConfiguration {
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
@@ -20,20 +19,16 @@ public class NothingJobConfiguration {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
-	@Autowired
-	private Tasklet nothingOnlyStepTasklet;
-
-	@Bean(name = NOTHING_JOB_NAME)
-	public Job doNothingJob() {
-
-		return jobBuilderFactory.get(NOTHING_JOB_NAME).start(nothingOnlyStep())
-				.build();
+	@Bean(name= COMPLEX_JOB_CONSTANT_NAME)
+	public Job complexJob(){
+		
+		return jobBuilderFactory.get(COMPLEX_JOB_CONSTANT_NAME).start(step1()).build();
 	}
 
 	@Bean
-	public Step nothingOnlyStep() {
-
-		return stepBuilderFactory.get(NOTHING_ONLY_STEP_NAME)
-				.tasklet(nothingOnlyStepTasklet).build();
+	public Step step1() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
 }

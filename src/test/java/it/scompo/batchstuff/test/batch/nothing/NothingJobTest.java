@@ -1,6 +1,8 @@
 package it.scompo.batchstuff.test.batch.nothing;
 
 import static org.junit.Assert.assertEquals;
+import static it.scompo.batchstuff.batch.nothing.NothingConstants.*;
+
 import it.scompo.batchstuff.Application;
 
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,6 +25,7 @@ public class NothingJobTest {
 	private JobLauncher jobLauncher;
 
 	@Autowired
+	@Qualifier(NOTHING_JOB_NAME)
 	private Job jobDoNothing;
 
 	@Test
