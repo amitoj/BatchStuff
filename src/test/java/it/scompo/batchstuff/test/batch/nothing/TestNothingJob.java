@@ -25,7 +25,7 @@ public class TestNothingJob {
 	private Job jobDoNothing;
 
 	@Test
-	public void test() throws Exception {
+	public void testRunDoNothing() throws Exception {
 
 		JobExecution res = null;
 
