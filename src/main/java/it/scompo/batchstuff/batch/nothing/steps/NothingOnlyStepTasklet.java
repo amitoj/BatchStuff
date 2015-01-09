@@ -1,4 +1,4 @@
-package it.scompo.batchstuff.batch.nothing;
+package it.scompo.batchstuff.batch.nothing.steps;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
