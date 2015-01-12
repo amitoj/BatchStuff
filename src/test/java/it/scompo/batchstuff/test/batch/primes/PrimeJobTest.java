@@ -42,7 +42,6 @@ public class PrimeJobTest {
 		map.put(PRIME_GENERATION_START_NUMBER_PARAM_NAME, new JobParameter("1"));
 		map.put(PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, new JobParameter("1000"));
 		
-		
 		JobParameters jobParameters = new JobParameters(map);
 		
 		res = jobLauncher.run(jobPrime, jobParameters);
