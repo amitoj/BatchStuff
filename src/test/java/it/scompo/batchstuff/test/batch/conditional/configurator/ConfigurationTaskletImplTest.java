@@ -39,9 +39,9 @@ public class ConfigurationTaskletImplTest {
 		step = MetaDataInstanceFactory.createStepExecution();
 		step.getExecutionContext().putLong(Steps.STEP_1.getNumParameterName(),
 				DEFAULT_VALUE);
-		step.getExecutionContext().putLong(Steps.STEP_2.toString(),
+		step.getExecutionContext().putLong(Steps.STEP_2.getNumParameterName(),
 				DEFAULT_VALUE);
-		step.getExecutionContext().putLong(Steps.STEP_3.toString(),
+		step.getExecutionContext().putLong(Steps.STEP_3.getNumParameterName(),
 				DEFAULT_VALUE);
 
 		return step;
