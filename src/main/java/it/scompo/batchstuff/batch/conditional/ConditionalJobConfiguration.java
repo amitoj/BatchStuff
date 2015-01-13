@@ -21,6 +21,13 @@ public class ConditionalJobConfiguration {
 	public static final int DEFAULT_CHUNK_SIZE = 1;
 
 	public static final String JOB_NAME = "conditionalJob";
+	
+	public enum Steps{
+		
+		STEP_1,
+		STEP_2,
+		STEP_3
+	}
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
