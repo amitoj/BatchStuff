@@ -1,10 +1,9 @@
 package it.scompo.batchstuff.test.batch.primes;
 
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_GENERATION_START_NUMBER_PARAM_NAME;
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import it.scompo.batchstuff.Application;
+import it.scompo.batchstuff.batch.primes.PrimeJobConfiguration;
 import it.scompo.batchstuff.batch.primes.steps.generation.reader.PrimeGenerationReader;
 
 import java.math.BigInteger;
@@ -28,9 +27,9 @@ public class PrimeGenerationReaderImplTest {
 		step = MetaDataInstanceFactory.createStepExecution();
 
 		step.getExecutionContext().putString(
-				PRIME_GENERATION_START_NUMBER_PARAM_NAME, "0");
+				PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME, "0");
 		step.getExecutionContext().putString(
-				PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, "10");
+				PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, "10");
 
 		return step;
 	}

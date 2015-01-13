@@ -1,12 +1,11 @@
 package it.scompo.batchstuff.test.batch.primes;
 
 import static org.junit.Assert.assertEquals;
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.*;
+import it.scompo.batchstuff.Application;
+import it.scompo.batchstuff.batch.primes.PrimeJobConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import it.scompo.batchstuff.Application;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +28,7 @@ public class PrimeJobTest {
 	private JobLauncher jobLauncher;
 
 	@Autowired
-	@Qualifier(PRIME_JOB_NAME)
+	@Qualifier(PrimeJobConfiguration.PRIME_JOB_NAME)
 	private Job jobPrime;
 
 	@Test
@@ -39,8 +38,8 @@ public class PrimeJobTest {
 
 		Map<String, JobParameter> map = new HashMap<String, JobParameter>();
 		
-		map.put(PRIME_GENERATION_START_NUMBER_PARAM_NAME, new JobParameter("1"));
-		map.put(PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, new JobParameter("1000"));
+		map.put(PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME, new JobParameter("1"));
+		map.put(PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, new JobParameter("1000"));
 		
 		JobParameters jobParameters = new JobParameters(map);
 		

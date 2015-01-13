@@ -1,7 +1,6 @@
 package it.scompo.batchstuff.batch.primes.steps.generation.reader;
 
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_GENERATION_START_NUMBER_PARAM_NAME;
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME;
+import it.scompo.batchstuff.batch.primes.PrimeJobConfiguration;
 
 import java.math.BigInteger;
 
@@ -28,9 +27,9 @@ public class PrimeGenerationReaderImpl implements PrimeGenerationReader {
 			throws ItemStreamException {
 
 		String readStartNumber = executionContext
-				.getString(PRIME_GENERATION_START_NUMBER_PARAM_NAME);
+				.getString(PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME);
 		String readStopNumber = executionContext
-				.getString(PRIME_GENERATION_STOP_NUMBER_PARAM_NAME);
+				.getString(PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME);
 
 		this.startNumber = new BigInteger(readStartNumber);
 		this.stopNumber = new BigInteger(readStopNumber);

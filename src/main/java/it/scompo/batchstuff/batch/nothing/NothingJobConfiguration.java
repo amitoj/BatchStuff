@@ -1,7 +1,5 @@
 package it.scompo.batchstuff.batch.nothing;
 
-import static it.scompo.batchstuff.batch.nothing.NothingConstants.*;
-
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -14,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NothingJobConfiguration {
 
+	public static final String NOTHING_ONLY_STEP_NAME = "nothingOnlyStep";
+
+	public static final String NOTHING_JOB_NAME = "nothingJob";
+	
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 

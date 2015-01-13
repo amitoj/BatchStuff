@@ -1,9 +1,8 @@
 package it.scompo.batchstuff.test.batch.nothing;
 
 import static org.junit.Assert.assertEquals;
-import static it.scompo.batchstuff.batch.nothing.NothingConstants.*;
-
 import it.scompo.batchstuff.Application;
+import it.scompo.batchstuff.batch.nothing.NothingJobConfiguration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,7 @@ public class NothingJobTest {
 	private JobLauncher jobLauncher;
 
 	@Autowired
-	@Qualifier(NOTHING_JOB_NAME)
+	@Qualifier(NothingJobConfiguration.NOTHING_JOB_NAME)
 	private Job jobDoNothing;
 
 	@Test

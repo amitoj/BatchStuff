@@ -1,8 +1,5 @@
 package it.scompo.batchstuff.batch.primes;
 
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.GENERATION_CHUNK_SIZE;
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_GENERATION_STEP_NAME;
-import static it.scompo.batchstuff.batch.primes.PrimeJobConstants.PRIME_JOB_NAME;
 import it.scompo.batchstuff.batch.primes.steps.generation.listener.PrimeGenerationStepExecutionListener;
 import it.scompo.batchstuff.batch.primes.steps.generation.processor.PrimeGenerationProcessor;
 import it.scompo.batchstuff.batch.primes.steps.generation.reader.PrimeGenerationReader;
@@ -21,6 +18,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PrimeJobConfiguration {
+	
+	public static final String PRIME_JOB_NAME = "primeJob";
+
+	public static final String PRIME_GENERATION_STEP_NAME = "primeGenerationStep";
+
+	public static final int GENERATION_CHUNK_SIZE = 100;
+
+	public static final String PRIME_GENERATION_START_NUMBER_PARAM_NAME = "startNumber";
+
+	public static final String PRIME_GENERATION_STOP_NUMBER_PARAM_NAME = "stopNumber";
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
