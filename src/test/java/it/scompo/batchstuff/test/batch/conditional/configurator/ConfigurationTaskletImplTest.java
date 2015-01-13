@@ -14,6 +14,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.scope.context.StepContext;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.batch.test.MetaDataInstanceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,14 @@ public class ConfigurationTaskletImplTest {
 		StepExecution step = null;
 
 		step = MetaDataInstanceFactory.createStepExecution();
-		step.getExecutionContext().putLong(Steps.STEP_1.getNumParameterName(),
+
+		ExecutionContext executionContext = step.getExecutionContext();
+
+		executionContext.putLong(Steps.STEP_1.getNumParameterName(),
 				DEFAULT_VALUE);
-		step.getExecutionContext().putLong(Steps.STEP_2.getNumParameterName(),
+		executionContext.putLong(Steps.STEP_2.getNumParameterName(),
 				DEFAULT_VALUE);
-		step.getExecutionContext().putLong(Steps.STEP_3.getNumParameterName(),
+		executionContext.putLong(Steps.STEP_3.getNumParameterName(),
 				DEFAULT_VALUE);
 
 		return step;
@@ -68,7 +72,7 @@ public class ConfigurationTaskletImplTest {
 		configurationSaved = configurationService.getLastConfiguration();
 
 		assertNotNull(configurationSaved.getExecution());
-		
+
 		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep1());
 		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep2());
 		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep3());
