@@ -65,7 +65,7 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 		Long res = null;
 
 		res = chunkContext.getStepContext().getStepExecution()
-				.getExecutionContext().getLong(step.toString());
+				.getExecutionContext().getLong(step.getNumParameterName());
 
 		return res;
 	}

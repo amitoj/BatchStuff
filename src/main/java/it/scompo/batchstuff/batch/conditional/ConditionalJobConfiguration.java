@@ -21,12 +21,28 @@ public class ConditionalJobConfiguration {
 	public static final int DEFAULT_CHUNK_SIZE = 1;
 
 	public static final String JOB_NAME = "conditionalJob";
-	
-	public enum Steps{
-		
-		STEP_1,
-		STEP_2,
-		STEP_3
+
+	public enum Steps {
+
+		STEP_1("step1.num", "step1.conf"), STEP_2("step2.num", "step2.conf"), STEP_3(
+				"step3.num", "step3.conf"), ;
+
+		private String configurationName;
+		private String numParameterName;
+
+		private Steps(String numParameterName, String configurationName) {
+			this.numParameterName = numParameterName;
+			this.configurationName = configurationName;
+		}
+
+		public String getNumParameterName() {
+			return numParameterName;
+		}
+
+		public String getConfigurationName() {
+			return configurationName;
+		}
+
 	}
 
 	@Autowired
@@ -50,7 +66,7 @@ public class ConditionalJobConfiguration {
 	@Autowired
 	@Qualifier(Step2Config.NAME)
 	private Step step2;
-	
+
 	@Autowired
 	@Qualifier(Step3Config.NAME)
 	private Step step3;
