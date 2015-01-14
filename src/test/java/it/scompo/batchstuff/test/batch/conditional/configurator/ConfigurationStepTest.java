@@ -6,7 +6,6 @@ import it.scompo.batchstuff.Application;
 import it.scompo.batchstuff.api.configurations.beans.Configuration;
 import it.scompo.batchstuff.api.configurations.services.ConfigurationService;
 import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration;
-import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration.Steps;
 import it.scompo.batchstuff.batch.conditional.steps.configuration.ConfigurationStepConfig;
 
 import java.util.HashMap;
@@ -35,7 +34,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		StepScopeTestExecutionListener.class })
 public class ConfigurationStepTest {
-	
+
 	@Autowired
 	@Qualifier(ConditionalJobConfiguration.JOB_NAME)
 	private Job job;
@@ -86,12 +85,9 @@ public class ConfigurationStepTest {
 
 		Map<String, JobParameter> parameters = new HashMap<String, JobParameter>();
 
-		parameters.put(Steps.STEP_1.getNumParameterName(), new JobParameter(
-				DEFAULT_VALUE));
-		parameters.put(Steps.STEP_2.getNumParameterName(), new JobParameter(
-				DEFAULT_VALUE));
-		parameters.put(Steps.STEP_3.getNumParameterName(), new JobParameter(
-				DEFAULT_VALUE));
+		parameters.put("step1.num", new JobParameter(DEFAULT_VALUE));
+		parameters.put("step2.num", new JobParameter(DEFAULT_VALUE));
+		parameters.put("step3.num", new JobParameter(DEFAULT_VALUE));
 
 		return new JobParameters(parameters);
 	}

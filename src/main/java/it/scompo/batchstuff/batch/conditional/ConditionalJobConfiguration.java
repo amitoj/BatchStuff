@@ -22,29 +22,6 @@ public class ConditionalJobConfiguration {
 
 	public static final String JOB_NAME = "conditionalJob";
 
-	public enum Steps {
-
-		STEP_1("step1.num", "step1.conf"), STEP_2("step2.num", "step2.conf"), STEP_3(
-				"step3.num", "step3.conf"), ;
-
-		private String configurationName;
-		private String numParameterName;
-
-		private Steps(String numParameterName, String configurationName) {
-			this.numParameterName = numParameterName;
-			this.configurationName = configurationName;
-		}
-
-		public String getNumParameterName() {
-			return numParameterName;
-		}
-
-		public String getConfigurationName() {
-			return configurationName;
-		}
-
-	}
-
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 
