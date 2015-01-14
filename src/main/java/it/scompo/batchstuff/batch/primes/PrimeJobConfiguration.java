@@ -1,8 +1,10 @@
 package it.scompo.batchstuff.batch.primes;
 
-import it.scompo.batchstuff.batch.primes.steps.generation.listener.PrimeGenerationStepExecutionListener;
+import it.scompo.batchstuff.batch.primes.steps.generation.PrimeValidator;
 import it.scompo.batchstuff.batch.primes.steps.generation.processor.PrimeGenerationProcessor;
+import it.scompo.batchstuff.batch.primes.steps.generation.processor.PrimeGenerationProcessorImpl;
 import it.scompo.batchstuff.batch.primes.steps.generation.reader.PrimeGenerationReader;
+import it.scompo.batchstuff.batch.primes.steps.generation.reader.PrimeGenerationReaderImpl;
 import it.scompo.batchstuff.batch.primes.steps.generation.skip.PrimeGeneratorSkipPolicy;
 import it.scompo.batchstuff.batch.primes.steps.generation.writer.PrimeGenerationWriter;
 
@@ -12,13 +14,14 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PrimeJobConfiguration {
-	
+
 	public static final String PRIME_JOB_NAME = "primeJob";
 
 	public static final String PRIME_GENERATION_STEP_NAME = "primeGenerationStep";
@@ -36,9 +39,6 @@ public class PrimeJobConfiguration {
 	private StepBuilderFactory stepBuilderFactory;
 
 	@Autowired
-	private PrimeGenerationProcessor primeGenerationProcessor;
-
-	@Autowired
 	private PrimeGenerationWriter primeGenerationWriter;
 
 	@Autowired
@@ -48,7 +48,7 @@ public class PrimeJobConfiguration {
 	private PrimeGeneratorSkipPolicy primeGeneratorSkipPolicy;
 
 	@Autowired
-	private PrimeGenerationStepExecutionListener primeGenerationListener;
+	private PrimeValidator primeValidator;
 
 	@Bean(name = PRIME_JOB_NAME)
 	public Job complexJob() {
@@ -63,10 +63,25 @@ public class PrimeJobConfiguration {
 		return stepBuilderFactory.get(PRIME_GENERATION_STEP_NAME)
 				.<BigInteger, BigInteger> chunk(GENERATION_CHUNK_SIZE)
 				.faultTolerant().skipPolicy(primeGeneratorSkipPolicy)
-				.reader(primeGenerationReader)
-				.processor(primeGenerationProcessor)
-				.writer(primeGenerationWriter)
-				.listener(primeGenerationListener).build();
+				.reader(primeGenerationReader()).processor(primeGeneratorProcessor())
+				.writer(primeGenerationWriter).build();
+	}
+
+	@Bean
+	@StepScope
+	public PrimeGenerationReader primeGenerationReader() {
+
+		return new PrimeGenerationReaderImpl();
+	}
+
+	@Bean
+	public PrimeGenerationProcessor primeGeneratorProcessor() {
+
+		PrimeGenerationProcessorImpl res = new PrimeGenerationProcessorImpl();
+
+		res.setValidator(primeValidator);
+
+		return res;
 	}
 
 }

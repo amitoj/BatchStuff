@@ -6,24 +6,20 @@ import it.scompo.batchstuff.api.configurations.services.ConfigurationService;
 import it.scompo.batchstuff.api.executions.beans.Execution;
 import it.scompo.batchstuff.api.executions.beans.ExecutionStaticFactory;
 import it.scompo.batchstuff.api.executions.services.ExecutionService;
-import it.scompo.batchstuff.batch.commons.CopyStepExecutionListener;
-import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration.Steps;
 import it.scompo.batchstuff.utils.DateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
-import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
-@Component
 public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 
-	private CopyStepExecutionListener stepExecutionCopyListener = new CopyStepExecutionListener();
+	private static final Logger logger = LoggerFactory
+			.getLogger(ConfigurationTaskletImpl.class);
 
 	@Autowired
 	private ExecutionService executionService;
@@ -31,8 +27,9 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 	@Autowired
 	private ConfigurationService configurationService;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ConfigurationTaskletImpl.class);
+	private Long numStep1;
+	private Long numStep2;
+	private Long numStep3;
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
@@ -41,14 +38,6 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 		Execution execution = null;
 
 		Configuration configuration = null;
-
-		Long numStep1 = null;
-		Long numStep2 = null;
-		Long numStep3 = null;
-
-		numStep1 = getNumFromContext(chunkContext, Steps.STEP_1);
-		numStep2 = getNumFromContext(chunkContext, Steps.STEP_2);
-		numStep3 = getNumFromContext(chunkContext, Steps.STEP_3);
 
 		execution = ExecutionStaticFactory.create(DateUtils.getCurrentDate());
 
@@ -64,26 +53,31 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 		return RepeatStatus.FINISHED;
 	}
 
-	private static Long getNumFromContext(ChunkContext chunkContext, Steps step) {
-
-		Long res = null;
-
-		res = chunkContext.getStepContext().getStepExecution()
-				.getExecutionContext().getLong(step.getNumParameterName());
-
-		return res;
+	public Long getNumStep1() {
+		return numStep1;
 	}
 
-	@Override
-	public void beforeStep(StepExecution stepExecution) {
-
-		stepExecutionCopyListener.beforeStep(stepExecution);
+	@Value(value = "#{jobParameters['step1.num']}")
+	public void setNumStep1(Long numStep1) {
+		this.numStep1 = numStep1;
 	}
 
-	@Override
-	public ExitStatus afterStep(StepExecution stepExecution) {
+	public Long getNumStep2() {
+		return numStep2;
+	}
 
-		return stepExecutionCopyListener.afterStep(stepExecution);
+	@Value(value = "#{jobParameters['step2.num']}")
+	public void setNumStep2(Long numStep2) {
+		this.numStep2 = numStep2;
+	}
+
+	public Long getNumStep3() {
+		return numStep3;
+	}
+
+	@Value(value = "#{jobParameters['step3.num']}")
+	public void setNumStep3(Long numStep3) {
+		this.numStep3 = numStep3;
 	}
 
 }

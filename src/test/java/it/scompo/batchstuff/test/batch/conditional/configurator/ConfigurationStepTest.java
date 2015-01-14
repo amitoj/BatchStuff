@@ -22,21 +22,23 @@ import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.test.JobLauncherTestUtils;
+import org.springframework.batch.test.StepScopeTestExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@ContextConfiguration(classes = { Application.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+		StepScopeTestExecutionListener.class })
 public class ConfigurationStepTest {
-
-	private static final Long DEFAULT_VALUE = 10L;
-
+	
 	@Autowired
-	private ConfigurationService configurationService;
-
-	private JobLauncherTestUtils jobLauncherTestUtils;
+	@Qualifier(ConditionalJobConfiguration.JOB_NAME)
+	private Job job;
 
 	@Autowired
 	private JobLauncher jobLauncher;
@@ -44,9 +46,20 @@ public class ConfigurationStepTest {
 	@Autowired
 	private JobRepository jobRepository;
 
+	public JobLauncherTestUtils jobLauncherTestUtils() {
+
+		JobLauncherTestUtils jobLauncherTestUtils = new JobLauncherTestUtils();
+		jobLauncherTestUtils.setJob(job);
+		jobLauncherTestUtils.setJobLauncher(jobLauncher);
+		jobLauncherTestUtils.setJobRepository(jobRepository);
+
+		return jobLauncherTestUtils;
+	}
+
+	private static final Long DEFAULT_VALUE = 10L;
+
 	@Autowired
-	@Qualifier(ConditionalJobConfiguration.JOB_NAME)
-	private Job job;
+	private ConfigurationService configurationService;
 
 	@Test
 	public void test() {
@@ -55,12 +68,7 @@ public class ConfigurationStepTest {
 
 		Configuration configurationSaved = null;
 
-		jobLauncherTestUtils = new JobLauncherTestUtils();
-		jobLauncherTestUtils.setJobLauncher(jobLauncher);
-		jobLauncherTestUtils.setJobRepository(jobRepository);
-		jobLauncherTestUtils.setJob(job);
-
-		jobExecution = jobLauncherTestUtils.launchStep(
+		jobExecution = jobLauncherTestUtils().launchStep(
 				ConfigurationStepConfig.NAME, getTestJobParameters());
 
 		assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());

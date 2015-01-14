@@ -1,7 +1,6 @@
 package it.scompo.batchstuff.batch.conditional.steps.step2;
 
 import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration;
-import it.scompo.batchstuff.batch.conditional.steps.step2.listener.Step2Listener;
 import it.scompo.batchstuff.batch.conditional.steps.step2.processor.Step2Processor;
 import it.scompo.batchstuff.batch.conditional.steps.step2.reader.Step2Reader;
 import it.scompo.batchstuff.batch.conditional.steps.step2.writer.Step2Writer;
@@ -33,15 +32,12 @@ public class Step2Config {
 	@Autowired
 	private Step2Writer step2Writer;
 
-	@Autowired
-	private Step2Listener step2Listener;
-
 	@Bean(name = NAME)
 	public Step step2() {
 
 		return stepBuilderFactory.get(NAME)
 				.<BigInteger, BigInteger> chunk(CHUNK_SIZE).faultTolerant()
 				.reader(step2Reader).processor(step2Processor)
-				.writer(step2Writer).listener(step2Listener).build();
+				.writer(step2Writer).build();
 	}
 }

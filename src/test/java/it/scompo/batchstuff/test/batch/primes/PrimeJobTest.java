@@ -39,7 +39,7 @@ public class PrimeJobTest {
 		Map<String, JobParameter> map = new HashMap<String, JobParameter>();
 		
 		map.put(PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME, new JobParameter("1"));
-		map.put(PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, new JobParameter("1000"));
+		map.put(PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME, new JobParameter("10"));
 		
 		JobParameters jobParameters = new JobParameters(map);
 		

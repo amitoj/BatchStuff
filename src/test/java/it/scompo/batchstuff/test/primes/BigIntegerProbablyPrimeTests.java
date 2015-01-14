@@ -18,7 +18,7 @@ public class BigIntegerProbablyPrimeTests {
 	@Test
 	public void testCarmichael() {
 		
-		assertFalse(new BigInteger("561").isProbablePrime(1));
+		assertFalse(new BigInteger("561").isProbablePrime(Integer.MAX_VALUE));
 		assertFalse(new BigInteger("1729").isProbablePrime(Integer.MAX_VALUE));
 		assertTrue(new BigInteger("32416190039").isProbablePrime(Integer.MAX_VALUE));
 		

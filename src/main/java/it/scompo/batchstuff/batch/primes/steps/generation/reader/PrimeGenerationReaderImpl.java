@@ -1,6 +1,7 @@
 package it.scompo.batchstuff.batch.primes.steps.generation.reader;
 
-import it.scompo.batchstuff.batch.primes.PrimeJobConfiguration;
+import static it.scompo.batchstuff.batch.primes.PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME;
+import static it.scompo.batchstuff.batch.primes.PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME;
 
 import java.math.BigInteger;
 
@@ -9,13 +10,13 @@ import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
-@Component
 public class PrimeGenerationReaderImpl implements PrimeGenerationReader {
 
 	private BigInteger startNumber;
 	private BigInteger stopNumber;
+
 	private BigInteger currentNumber;
 
 	public PrimeGenerationReaderImpl() {
@@ -25,14 +26,6 @@ public class PrimeGenerationReaderImpl implements PrimeGenerationReader {
 	@Override
 	public void open(ExecutionContext executionContext)
 			throws ItemStreamException {
-
-		String readStartNumber = executionContext
-				.getString(PrimeJobConfiguration.PRIME_GENERATION_START_NUMBER_PARAM_NAME);
-		String readStopNumber = executionContext
-				.getString(PrimeJobConfiguration.PRIME_GENERATION_STOP_NUMBER_PARAM_NAME);
-
-		this.startNumber = new BigInteger(readStartNumber);
-		this.stopNumber = new BigInteger(readStopNumber);
 
 		currentNumber = startNumber;
 	}
@@ -62,6 +55,26 @@ public class PrimeGenerationReaderImpl implements PrimeGenerationReader {
 
 			return currentNumber.subtract(BigInteger.ONE);
 		}
+	}
+
+	public BigInteger getStartNumber() {
+		return startNumber;
+	}
+
+	@Value(value = "#{jobParameters['" + PRIME_GENERATION_START_NUMBER_PARAM_NAME
+			+ "']}")
+	public void setStartNumber(BigInteger startNumber) {
+		this.startNumber = startNumber;
+	}
+
+	public BigInteger getStopNumber() {
+		return stopNumber;
+	}
+
+	@Value(value = "#{jobParameters['" + PRIME_GENERATION_STOP_NUMBER_PARAM_NAME
+			+ "']}")
+	public void setStopNumber(BigInteger stopNumber) {
+		this.stopNumber = stopNumber;
 	}
 
 }
