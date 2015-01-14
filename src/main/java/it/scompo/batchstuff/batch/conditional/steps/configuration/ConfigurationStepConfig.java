@@ -16,11 +16,12 @@ public class ConfigurationStepConfig {
 	
 	@Autowired
 	private ConfigurationTasklet configurationTasklet;
+
 	
 	@Bean(name = NAME)
 	public Step configurationStep() {
 
 		return stepBuilderFactory.get(NAME)
-				.tasklet(configurationTasklet).build();
+				.tasklet(configurationTasklet).listener(configurationTasklet).build();
 	}
 }

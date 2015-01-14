@@ -1,35 +1,10 @@
 package it.scompo.batchstuff.batch.conditional.steps.step1.listener;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.JobParameter;
-import org.springframework.batch.core.StepExecution;
 import org.springframework.stereotype.Component;
 
+import it.scompo.batchstuff.batch.commons.CopyStepExecutionListener;
+
 @Component
-public class Step1ListenerImpl implements Step1Listener {
-
-	@Override
-	public void beforeStep(StepExecution stepExecution) {
-
-		Map<String, JobParameter> jobParameters = stepExecution
-				.getJobParameters().getParameters();
-
-		for (Entry<String, JobParameter> entry : jobParameters.entrySet()) {
-
-			String key = entry.getKey();
-			JobParameter value = entry.getValue();
-
-			stepExecution.getExecutionContext().put(key, value.getValue());
-		}
-	}
-
-	@Override
-	public ExitStatus afterStep(StepExecution stepExecution) {
-
-		return stepExecution.getExitStatus();
-	}
+public class Step1ListenerImpl extends CopyStepExecutionListener implements Step1Listener{
 
 }

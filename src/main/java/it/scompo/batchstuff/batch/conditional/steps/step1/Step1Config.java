@@ -1,12 +1,12 @@
 package it.scompo.batchstuff.batch.conditional.steps.step1;
 
-import java.math.BigInteger;
-
 import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration;
 import it.scompo.batchstuff.batch.conditional.steps.step1.listener.Step1Listener;
 import it.scompo.batchstuff.batch.conditional.steps.step1.processor.Step1Processor;
 import it.scompo.batchstuff.batch.conditional.steps.step1.reader.Step1Reader;
 import it.scompo.batchstuff.batch.conditional.steps.step1.writer.Step1Writer;
+
+import java.math.BigInteger;
 
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
