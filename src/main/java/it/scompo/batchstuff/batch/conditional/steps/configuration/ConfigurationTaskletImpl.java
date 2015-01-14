@@ -8,8 +8,7 @@ import it.scompo.batchstuff.api.executions.beans.ExecutionStaticFactory;
 import it.scompo.batchstuff.api.executions.services.ExecutionService;
 import it.scompo.batchstuff.batch.commons.CopyStepExecutionListener;
 import it.scompo.batchstuff.batch.conditional.ConditionalJobConfiguration.Steps;
-
-import java.util.Date;
+import it.scompo.batchstuff.utils.DateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ConfigurationTaskletImpl implements ConfigurationTasklet {
-	
+
 	private CopyStepExecutionListener stepExecutionCopyListener = new CopyStepExecutionListener();
 
 	@Autowired
@@ -51,7 +50,7 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 		numStep2 = getNumFromContext(chunkContext, Steps.STEP_2);
 		numStep3 = getNumFromContext(chunkContext, Steps.STEP_3);
 
-		execution = ExecutionStaticFactory.create(getCurrentDate());
+		execution = ExecutionStaticFactory.create(DateUtils.getCurrentDate());
 
 		executionService.save(execution);
 
@@ -73,11 +72,6 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 				.getExecutionContext().getLong(step.getNumParameterName());
 
 		return res;
-	}
-
-	private static Date getCurrentDate() {
-
-		return new Date();
 	}
 
 	@Override
