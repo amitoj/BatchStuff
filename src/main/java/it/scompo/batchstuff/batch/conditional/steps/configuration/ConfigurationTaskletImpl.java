@@ -1,7 +1,7 @@
 package it.scompo.batchstuff.batch.conditional.steps.configuration;
 
 import it.scompo.batchstuff.api.configurations.beans.Configuration;
-import it.scompo.batchstuff.api.configurations.beans.ConfigurationStaticFactory;
+import it.scompo.batchstuff.api.configurations.beans.ConfigurationBuilder;
 import it.scompo.batchstuff.api.configurations.services.ConfigurationService;
 import it.scompo.batchstuff.api.executions.beans.Execution;
 import it.scompo.batchstuff.api.executions.beans.ExecutionStaticFactory;
@@ -27,9 +27,7 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 	@Autowired
 	private ConfigurationService configurationService;
 
-	private Long numStep1;
-	private Long numStep2;
-	private Long numStep3;
+	private Long numbersToCreate;
 
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
@@ -43,8 +41,7 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 
 		executionService.save(execution);
 
-		configuration = ConfigurationStaticFactory.create(execution, numStep1,
-				numStep2, numStep3);
+		configuration = buildConfiguration(execution);
 
 		configurationService.save(configuration);
 
@@ -53,31 +50,21 @@ public class ConfigurationTaskletImpl implements ConfigurationTasklet {
 		return RepeatStatus.FINISHED;
 	}
 
-	public Long getNumStep1() {
-		return numStep1;
+	private Configuration buildConfiguration(Execution execution) {
+
+		ConfigurationBuilder configurationBuilder = new ConfigurationBuilder(
+				execution);
+
+		return configurationBuilder.numbersToCreate(numbersToCreate).build();
 	}
 
-	@Value(value = "#{jobParameters['step1.num']}")
-	public void setNumStep1(Long numStep1) {
-		this.numStep1 = numStep1;
+	public Long getNumbersToCreate() {
+		return numbersToCreate;
 	}
 
-	public Long getNumStep2() {
-		return numStep2;
-	}
-
-	@Value(value = "#{jobParameters['step2.num']}")
-	public void setNumStep2(Long numStep2) {
-		this.numStep2 = numStep2;
-	}
-
-	public Long getNumStep3() {
-		return numStep3;
-	}
-
-	@Value(value = "#{jobParameters['step3.num']}")
-	public void setNumStep3(Long numStep3) {
-		this.numStep3 = numStep3;
+	@Value(value = "#{jobParameters['numbersToCreate']}")
+	public void setNumbersToCreate(Long numbersToCreate) {
+		this.numbersToCreate = numbersToCreate;
 	}
 
 }

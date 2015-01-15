@@ -31,7 +31,7 @@ public class Step1ReaderImpl implements Step1Reader {
 
 		conf = configurationService.getLastConfiguration();
 
-		max = conf.getNumStep1();
+		max = conf.getNumbersToCreate();
 
 		count = 0L;
 	}

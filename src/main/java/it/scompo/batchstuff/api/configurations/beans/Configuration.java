@@ -10,14 +10,10 @@ public class Configuration implements Serializable {
 
 	private Execution execution;
 
-	private Long numStep1;
+	private Long numbersToCreate;
 
-	private Long numStep2;
-
-	private Long numStep3;
-
-	public Configuration() {
-
+	protected Configuration() {
+		
 	}
 
 	public Execution getExecution() {
@@ -28,35 +24,17 @@ public class Configuration implements Serializable {
 		this.execution = execution;
 	}
 
-	public Long getNumStep1() {
-		return numStep1;
+	public Long getNumbersToCreate() {
+		return numbersToCreate;
 	}
 
-	public void setNumStep1(Long numStep1) {
-		this.numStep1 = numStep1;
-	}
-
-	public Long getNumStep2() {
-		return numStep2;
-	}
-
-	public void setNumStep2(Long numStep2) {
-		this.numStep2 = numStep2;
-	}
-
-	public Long getNumStep3() {
-		return numStep3;
-	}
-
-	public void setNumStep3(Long numStep3) {
-		this.numStep3 = numStep3;
+	public void setNumbersToCreate(Long numbersToCreate) {
+		this.numbersToCreate = numbersToCreate;
 	}
 
 	@Override
 	public String toString() {
-		return "Configuration [execution=" + execution + ", numStep1="
-				+ numStep1 + ", numStep2=" + numStep2 + ", numStep3="
-				+ numStep3 + "]";
+		return "Configuration [execution=" + execution + ", numbersToCreate="
+				+ numbersToCreate + "]";
 	}
-
 }

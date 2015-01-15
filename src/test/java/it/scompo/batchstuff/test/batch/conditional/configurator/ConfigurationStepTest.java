@@ -76,18 +76,14 @@ public class ConfigurationStepTest {
 
 		assertNotNull(configurationSaved.getExecution());
 
-		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep1());
-		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep2());
-		assertEquals(DEFAULT_VALUE, configurationSaved.getNumStep3());
+		assertEquals(DEFAULT_VALUE, configurationSaved.getNumbersToCreate());
 	}
 
 	private JobParameters getTestJobParameters() {
 
 		Map<String, JobParameter> parameters = new HashMap<String, JobParameter>();
 
-		parameters.put("step1.num", new JobParameter(DEFAULT_VALUE));
-		parameters.put("step2.num", new JobParameter(DEFAULT_VALUE));
-		parameters.put("step3.num", new JobParameter(DEFAULT_VALUE));
+		parameters.put("numbersToCreate", new JobParameter(DEFAULT_VALUE));
 
 		return new JobParameters(parameters);
 	}
