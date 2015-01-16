@@ -45,7 +45,8 @@ public class Step1ReaderImpl implements Step1Reader {
 
 	@Override
 	public void close() throws ItemStreamException {
-		// TODO Auto-generated method stub
+		
+		count = 0L;
 	}
 
 	@Override
