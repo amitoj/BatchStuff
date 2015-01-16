@@ -22,6 +22,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.tumblr</groupId>
+			<artifactId>jumblr</artifactId>
+			<version>0.0.6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -32,10 +38,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
 			<artifactId>spring-batch-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 </project>
