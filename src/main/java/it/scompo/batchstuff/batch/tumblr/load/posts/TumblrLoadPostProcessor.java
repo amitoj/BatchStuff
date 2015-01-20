@@ -4,15 +4,14 @@ import it.scompo.batchstuff.api.tumblr.beans.PersistablePost;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import com.tumblr.jumblr.types.Post;
-
 public class TumblrLoadPostProcessor implements
-		ItemProcessor<Post, PersistablePost> {
+		ItemProcessor<PersistablePost, PersistablePost> {
 
 	@Override
-	public PersistablePost process(Post item) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public PersistablePost process(PersistablePost item) throws Exception {
+
+		System.err.println(item);
+		return item;
 	}
 
 }
