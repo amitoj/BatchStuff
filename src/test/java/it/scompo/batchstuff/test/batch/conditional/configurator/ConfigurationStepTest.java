@@ -24,6 +24,7 @@ import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.StepScopeTestExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -33,6 +34,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @ContextConfiguration(classes = { Application.class })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		StepScopeTestExecutionListener.class })
+@ActiveProfiles(profiles = "test")
 public class ConfigurationStepTest {
 
 	@Autowired
